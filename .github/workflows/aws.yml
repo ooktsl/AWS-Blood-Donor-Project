@@ -1,4 +1,4 @@
-name: Deploy to AWS S3 Bucket
+name: Deploy HTML files to AWS S3
 
 on:
   push:
@@ -12,19 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Node.js versiyonunu projenizin gereksinimlerine göre değiştirebilirsiniz
-
-      - name: Install Dependencies
-        run: npm install  # Proje bağımlılıklarını yükler
-
-      - name: Build Project
-        run: npm run build  # Projenizin build komutunu çalıştırır, bu komut projenize özgü olabilir
+      - name: Install AWS CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
 
       - name: Deploy to AWS S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: aws s3 sync ./dist s3://aws.mesuty.com.tr --delete  # Build klasörünüzü AWS S3'e senkronize eder
+        run: aws s3 sync . s3://aws.mesuty.com.tr --delete --exclude ".git/*" --exclude ".github/*"
