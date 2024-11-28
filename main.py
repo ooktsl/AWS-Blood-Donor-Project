@@ -6,35 +6,33 @@ import sqlalchemy.orm as _orm
 from fastapi import HTTPException
 import services as _services, schemas as _schemas
 from database import engine, Base
-
 import models as _models
 from fastapi.middleware.cors import CORSMiddleware
 
-
-
-
+# FastAPI uygulaması oluşturuluyor
 app = _fastapi.FastAPI()
 
+# CORS Middleware ekleniyor
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Herkese izin ver
-    allow_credentials=True,  # Kimlik bilgilerini (ör. Cookies, Authorization header) izin ver
-    allow_methods=["*"],  # Tüm HTTP metodlarına izin ver (GET, POST, PUT, DELETE, vb.)
-    allow_headers=["*"],  # Tüm header'lara izin ver
+    allow_origins=["*"],  # Tüm kaynaklara izin ver
+    allow_credentials=True,  # Kimlik bilgilerine izin ver
+    allow_methods=["*"],  # Tüm HTTP metotlarına izin ver
+    allow_headers=["*"],  # Tüm başlıklara izin ver
 )
 
+# Veritabanı tabloları oluşturuluyor
 Base.metadata.create_all(bind=engine)
 
-
-
+# Email gönderim fonksiyonları
 async def sendEmail(email):
     try:
-        async  with httpx.AsyncClient() as client:
-            response = await  client.get(
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
                 "https://1gfauwl3l6.execute-api.eu-central-1.amazonaws.com/default/savemailadress",
                 params={"email": email}
             )
-            response.raise_for_status() 
+            response.raise_for_status()
             print("HTTP Request successful:", response.json())
     except httpx.HTTPStatusError as exc:
         print(f"HTTP Request failed with status {exc.response.status_code}: {exc.response.text}")
@@ -44,12 +42,12 @@ async def sendEmail(email):
 
 async def sendEmail2(id):
     try:
-        async  with httpx.AsyncClient() as client:
-            response = await  client.get(
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
                 "https://sizznta2vc.execute-api.eu-central-1.amazonaws.com/default/newuserpublication",
                 params={"user_id": id}
             )
-            response.raise_for_status() 
+            response.raise_for_status()
             print("HTTP Request successful:", response.json())
     except httpx.HTTPStatusError as exc:
         print(f"HTTP Request failed with status {exc.response.status_code}: {exc.response.text}")
@@ -57,6 +55,7 @@ async def sendEmail2(id):
         print(f"Unexpected error during HTTP request: {e}")
 
 
+# API endpointleri
 @app.post("/api/users")
 async def create_user(
     user: _schemas.UserCreate, db: _orm.Session = _fastapi.Depends(_services.get_db)
@@ -64,19 +63,16 @@ async def create_user(
     db_user = await _services.get_user_by_email(user.email, db)
     if db_user:
         raise _fastapi.HTTPException(status_code=400, detail="Email already in use")
-    else: 
-        #send E-Mail 
+    else:
         try:
-            await sendEmail(user.email)  
+            await sendEmail(user.email)
         except Exception as e:
             raise HTTPException(
                 status_code=500, detail=f"Failed to send email: {str(e)}"
             )
 
     user = await _services.create_user(user, db)
-    
     return await _services.create_token(user)
-
 
 
 @app.post("/api/token")
@@ -84,20 +80,17 @@ async def generate_token(
     form_data: _security.OAuth2PasswordRequestForm = _fastapi.Depends(),
     db: _orm.Session = _fastapi.Depends(_services.get_db),
 ):
-    print("/api/token")
     user = await _services.authenticate_user(form_data.username, form_data.password, db)
-    print("/api/token user",user)
     if not user:
         raise _fastapi.HTTPException(status_code=401, detail="Invalid Credentials")
 
     return await _services.create_token(user)
 
 
-
 @app.get("/api/users/me", response_model=_schemas.User)
 async def get_user(user: _schemas.User = _fastapi.Depends(_services.get_current_user)):
     return user
-    
+
 
 @app.post("/api/leads", response_model=_schemas.Lead)
 async def create_lead(
@@ -132,7 +125,7 @@ async def delete_lead(
     db: _orm.Session = _fastapi.Depends(_services.get_db),
 ):
     await _services.delete_lead(lead_id, user, db)
-    return {"message", "Successfully Deleted"}
+    return {"message": "Successfully Deleted"}
 
 
 @app.put("/api/leads/{lead_id}", status_code=200)
@@ -143,14 +136,15 @@ async def update_lead(
     db: _orm.Session = _fastapi.Depends(_services.get_db),
 ):
     await _services.update_lead(lead_id, lead, user, db)
-    return {"message", "Successfully Updated"}
-
+    return {"message": "Successfully Updated"}
 
 
 @app.get("/api")
 async def root():
     return {"message": "Grup 4"}
 
+
+# Diğer endpointler aşağıdaki formatta devam ediyor...
 
 @app.get("/api/blood-types", response_model=List[_schemas.BloodType])
 async def get_blood_types(db: _orm.Session = _fastapi.Depends(_services.get_db)):    
