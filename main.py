@@ -82,7 +82,7 @@ async def generate_token(
 ):
     user = await _services.authenticate_user(form_data.username, form_data.password, db)
     if not user:
-        raise _fastapi.HTTPException(status_code=401, detail="Invalid Credentials")
+        raise _fastapi.HTTPException(status_code=401, detail="Hatalı Giriş Yaptınız.!")
 
     return await _services.create_token(user)
 
