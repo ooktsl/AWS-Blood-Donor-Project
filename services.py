@@ -202,6 +202,9 @@ async def create_publication(thatUser,publication_data: _schemas.BloodilanReques
     
     print("int(publication_data['neighborhood']),",int(publication_data['neighborhood']))
     
+    if publication_data['urgency_status'] =="Acil":
+        IsAcil=1
+    else: IsAcil=2
     
     # Yeni ilan nesnesi
     publication_obj = _models.BloodDonationPublication(
@@ -210,12 +213,12 @@ async def create_publication(thatUser,publication_data: _schemas.BloodilanReques
         hospital_name=publication_data['hospital'],
         blood_type_id=publication_data['blood_type_id'],
         #blood_type=blood_type,
-        urgency_status=publication_data['urgency_status'],
+        urgency_status=IsAcil,
         # urgency_status=1,
         created_date=_dt.datetime.now(),
         start_date=publication_data.get('startDate', None) if publication_data.get('startDate', None) is not None else _dt.datetime.now(),
         end_date=publication_data.get('finishDate', None) if publication_data.get('finishDate', None) is not None else _dt.datetime.now(),
-        donation_type=publication_data['donationType'],
+        donation_type=int(publication_data['donationType']),
         location=int(publication_data['neighborhood']),
         description=publication_data['annotation'],
         status=0,

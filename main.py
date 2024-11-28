@@ -204,19 +204,27 @@ async def create_ilan(
         )
     
     print(f"\n\nUser found with ID: {user}")
+    print("Request data['donation_type']:",data['donationType'])
+    print("Request data['blood_type_id']:",data['blood_type_id'])
+    print("Request data['urgency_status']:",data['urgency_status'])
 
-    if data['donationType'] == "Tam Kan Bağışı":
-        data['donationType'] = 1
+
+    if data['donationType'] == "Tam kan bağışı":
+        data['donationType'] = "1"
     elif data['donationType'] =="Tromboferez":
-        data['donationType'] = 2
+        data['donationType'] = "2"
     elif data['donationType'] =="Eritroferez":
-        data['donationType'] = 3
+        data['donationType'] = "3"
     elif data['donationType'] =="Plazmaferez":
-        data['donationType'] = 4
-    else: data['donationType'] = 4
+        data['donationType'] = "4"
+    else: data['donationType'] = "1"
+
+    
+
     # data['bloodType']=1
     # data['donation_type']=1
-    #print("Request data received:",data['bloodType'])
+    
+   
     data['email_service']=0
     print("email_service",data)
 
@@ -318,8 +326,9 @@ async def get_all_publications(email: str, db: _orm.Session = _fastapi.Depends(_
     .filter(_models.BloodDonationPublication.user_id != user_id)
     .all()
     )    
-
-    for pub in other_publications:        
+    
+    for pub in other_publications:             
+       
         location_details = get_neighborhood_details_by_id(pub.location, db)
         if location_details:
             pub.location2 = location_details
@@ -332,7 +341,7 @@ async def get_all_publications(email: str, db: _orm.Session = _fastapi.Depends(_
 
 
 @app.get("/apply-publications/{id}/{email}/{location}")  #,response_model=List[_schemas.BloodilanRequest]
-async def get_all_publications(id: int, email: str, location:int, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+async def applied_publications(id: int, email: str, location:int, db: _orm.Session = _fastapi.Depends(_services.get_db)):
     print("\n\n\nid email",id)
     user_id = await _services.get_userID_by_email(email, db)
     print("user_id",user_id)
@@ -353,4 +362,26 @@ async def get_all_publications(id: int, email: str, location:int, db: _orm.Sessi
     else:
         print(f"Publication ID {id} bulunamadı.")
 
+
+
+@app.get("/delete-publications/{id}/{email}/{location}")  #,response_model=List[_schemas.BloodilanRequest]
+async def delete_publications(id: int, email: str, location:int, db: _orm.Session = _fastapi.Depends(_services.get_db)):
+    print("\n\n\nid --->",id)
+    #user_id = await _services.get_userID_by_email(email, db)
+    #print("user_id",user_id)
+
+    publication = db.query(_models.BloodDonationPublication).filter_by(user_id=id , location=location).first()
+    print("publication", publication.id, publication.user_id)
+
+
+    if not publication:
+        # Yayın bulunamazsa hata döndür
+        raise _fastapi.HTTPException(status_code=404, detail="Publication not found")
+
+  
+    # Yayını veritabanından sil
+    db.delete(publication)
+    db.commit()
+ 
+    return {"detail": "Publication deleted successfully"}
     

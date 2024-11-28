@@ -10,20 +10,7 @@ from pydantic import BaseModel, validator
 
 
 
-# Enum Tanımlamaları
-class DemandStatusEnum(str, Enum):
-    normal = "Normal"
-    urgent = "Acil"
 
-class DonationTypeEnum(str, Enum):
-    whole_blood = "Tam Kan"
-    thrombapheresis = "Tromboferez"
-    plasma = "Plazma"
-
-
-class UrgentEnum(str, Enum):
-    Acil = 1
-    Süreli = 2
 
 # Kan Bağışı Talebi Şeması
 class BloodilanRequest(_pydantic.BaseModel):
@@ -84,14 +71,7 @@ class reBloodilanRequest(_pydantic.BaseModel):
     applied: Optional[str] = None 
 
 
-    @validator('urgency_status', pre=True, always=True)
-    def convert_urgency_status(cls, value):
-        if isinstance(value, str):
-            if value.lower() == "acil":
-                return 1
-            elif value.lower() == "süreli":
-                return 2
-        return value
+   
 
 class GenderEnum(str, Enum):
     male = "Male"
