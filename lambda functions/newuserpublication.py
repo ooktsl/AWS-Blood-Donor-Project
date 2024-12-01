@@ -2,11 +2,11 @@ import boto3
 import pymysql
 
 # RDS bağlantı bilgileri
-RDS_HOST = "kanbagisdb.clwamwmci9vk.eu-central-1.rds.amazonaws.com"
-RDS_USER = "admin"
-RDS_PASSWORD = "sdsd"
-RDS_DATABASE = "kanbagisdb"
-RDS_PORT = 63306
+RDS_HOST = ""
+RDS_USER = ""
+RDS_PASSWORD = ""
+RDS_DATABASE = ""
+RDS_PORT = 
 
 # AWS SES ayarları
 AWS_REGION = 'eu-central-1'
