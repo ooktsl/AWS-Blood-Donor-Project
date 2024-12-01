@@ -7,11 +7,11 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # AWS SES and RDS configuration
-RDS_HOST = "kanbagisdb.clwamwmci9vk.eu-central-1.rds.amazonaws.com"
-RDS_USER = "admin"
-RDS_PASSWORD = "sdsd"
-RDS_DATABASE = "kanbagisdb"
-RDS_PORT = 63306  # Correct MySQL default port is 3306, not 63306
+RDS_HOST = ""
+RDS_USER = ""
+RDS_PASSWORD = ""
+RDS_DATABASE = ""
+RDS_PORT =
 
 # SES client
 ses_client = boto3.client('ses', region_name="eu-central-1")
