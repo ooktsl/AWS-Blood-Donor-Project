@@ -1,55 +1,59 @@
-# Kan Aranıyor! 🚑
+Blood Needed! 🚑
 
-**Hayat kurtarmak bazen sadece bir tık ötede olabilir!**
+Saving a life could be just a click away!
 
-Her gün binlerce insan acil kan ihtiyacıyla karşı karşıya kalıyor. Ancak doğru bağışçıya ulaşmak, çoğu zaman bir yarışa dönüşüyor. **Kan Aranıyor!** bu sorunu çözmek için geliştirilmiş bir platformdur.
+Every day, thousands of people face urgent blood needs. However, finding the right donor often turns into a race against time. Blood Needed! is a platform designed to solve this issue by connecting blood donors with those in need.
 
-## 📜 Projenin Amacı
+📜 Project Goal
 
-Bu proje, kan bağışçısını ihtiyaç sahipleriyle bir araya getirerek hayat kurtarmayı hedefler. İletişim eksikliğini ortadan kaldırarak, bağış sürecini hızlı, güvenilir ve kolay hale getirir.
+This project aims to bring donors and recipients together, saving lives. It eliminates communication barriers, making the donation process fast, reliable, and simple.
 
-## 🚀 Projenin İşleyişi
+🚀 How It Works
 
-1. **İlan Oluştur:** Kan ihtiyacı olan kişi platformda bir ilan açar.
-2. **Bağışçıları Bilgilendir:** Sistem, aynı semtteki ve uygun kan grubundaki bağışçılara e-posta gönderir.
-3. **Bağış Yap:** Bağışçı, ilanı inceleyerek “Bağışçı Ol” butonuna tıklar.
-4. **Sonuçlandırma:** İlan başarılı bir bağış ile kapanır veya belirli bir süre sonunda ilan sahibi bilgilendirilerek süreç sonlandırılır.
+	1.	Create a Listing: A person in need of blood creates a listing on the platform.
+	2.	Notify Donors: The system sends emails to donors in the same area with the matching blood type.
+	3.	Make a Donation: The donor reviews the listing and clicks the “Become a Donor” button.
+	4.	Conclude the Process: The listing closes successfully after a donation or ends after a specific period, notifying the listing creator.
 
-## 🛠️ Kullanılan Teknolojiler ve Altyapı
+🛠️ Technologies and Infrastructure Used
 
-### Backend & Frontend
-- **Backend:** FastAPI ile geliştirildi.
-- **Frontend:** Kullanıcı dostu bir arayüz.
+Backend & Frontend
 
-### AWS Servisleri
-- **EC2 Instances:** Sunucu barındırma.
-- **RDS Database:** Veritabanı yönetimi.
-- **Amazon SES:** E-posta gönderimi.
-- **Amazon EventBridge:** Otomatik tetikleyici.
-- **AWS Lambda:** İşlevsel mikro hizmetler.
-- **Amazon S3 Buckets:** Dosya depolama.
+	•	Backend: Developed with FastAPI.
+	•	Frontend: User-friendly interface.
 
-### Lambda Fonksiyonları
-1. **savemailadress:** Yeni üyenin e-posta adresini sisteme kaydeder.
-2. **sendmail:** Kan bağışı için eşleşen bağışçılara e-posta gönderir.
-3. **basarisizarama:** Maksimum arama sayısına ulaşıldığında ilan sahibini bilgilendirir.
-4. **newuserpublication:** Yeni ilanları tetikleyerek uygun eşleşmeleri bulur.
+AWS Services
 
-## 💡 Gelecek Planları
-- **Mobil Uygulama:** İlan sahipleri ve bağışçılar için mobil entegrasyon.
-- **Gelişmiş Filtreleme:** Konum, kan grubu ve tarih gibi kriterlere göre ilan sıralama.
-- **İstatistik ve Raporlama:** Toplam bağış sayısı, başarılı ilanlar gibi verilerin raporlanması.
-- **Yerel Sağlık Kurumlarıyla Entegrasyon:** İlanların doğruluğunu artırmak.
+	•	EC2 Instances: For hosting the server.
+	•	RDS Database: Database management.
+	•	Amazon SES: Email notifications.
+	•	Amazon EventBridge: Automated triggers.
+	•	AWS Lambda: Functional microservices.
+	•	Amazon S3 Buckets: File storage.
 
-## 👩‍💻 Katkıda Bulunanlar
+Lambda Functions
+
+	1.	savemailadress: Registers a new user’s email address in the system.
+	2.	sendmail: Sends emails to donors matching the blood need.
+	3.	basarisizarama: Notifies the listing owner when maximum search attempts are reached.
+	4.	newuserpublication: Triggers new listings to find appropriate matches.
+
+💡 Future Plans
+
+	•	Mobile Application: Integration for listing owners and donors.
+	•	Advanced Filtering: Sorting listings by location, blood type, and date.
+	•	Statistics and Reporting: Reports on total donations, successful listings, and more.
+	•	Integration with Local Health Organizations: To enhance listing accuracy.
+
+👩‍💻 Contributors
+
 - **Ömer Kutsal** - [LinkedIn](https://www.linkedin.com/in/ook15072016/)
 - **Zehra Kezer** - [LinkedIn](https://www.linkedin.com/in/zehrakezer/)
 - **Cevahir Özgür** - [LinkedIn](https://www.linkedin.com/in/cevahirozgur/)
 - **Mesut Yürekdinç** - [LinkedIn](https://www.linkedin.com/in/mesutyurekdinc/)
 
-## 🌐 Canlı Demo
-Projenin canlı halini [buradan](http://github.rocks.s3-website.eu-central-1.amazonaws.com/) inceleyebilirsiniz.
+🌐 Live Demo
 
----
+You can check out the live demo of the project Time: 41:20 https://youtu.be/KHCmUi_z5R0?t=2487
 
-**Kan Aranıyor!** ile bir hayat kurtarmaya ne dersiniz? 💞
+Ready to save a life with Blood Needed? 💞
