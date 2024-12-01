@@ -46,7 +46,6 @@ Lambda Functions
 	•	Integration with Local Health Organizations: To enhance listing accuracy.
 
 👩‍💻 Contributors
-
 - **Ömer Kutsal** - [LinkedIn](https://www.linkedin.com/in/ook15072016/)
 - **Zehra Kezer** - [LinkedIn](https://www.linkedin.com/in/zehrakezer/)
 - **Cevahir Özgür** - [LinkedIn](https://www.linkedin.com/in/cevahirozgur/)
