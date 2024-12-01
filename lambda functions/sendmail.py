@@ -2,15 +2,15 @@ import boto3
 import pymysql
 
 # RDS bağlantı bilgileri
-RDS_HOST = "kanbagisdb.clwamwmci9vk.eu-central-1.rds.amazonaws.com"
-RDS_USER = "admin"
-RDS_PASSWORD = "sdsd"
-RDS_DATABASE = "kanbagisdb"
-RDS_PORT = 63306
+RDS_HOST = ""
+RDS_USER = ""
+RDS_PASSWORD = ""
+RDS_DATABASE = ""
+RDS_PORT = 
 
 # AWS SES ayarları
 AWS_REGION = 'eu-central-1'
-SES_SENDER = 'kanproje@sdsd.com.tr'  # Verified sender email address in SES
+SES_SENDER = ''  # Verified sender email address in SES
 
 # SES Client
 ses_client = boto3.client('ses', region_name=AWS_REGION)
